@@ -3,7 +3,7 @@
 
     angular
         .module('my-app.main', ['my-app.tab1', 'my-app.tab2', 'my-app.teams'])
-            .config(Config)
+        .config(Config)
 
     Config.$inject = ['$stateProvider']
 
@@ -17,10 +17,7 @@
                         return { value: 'simple!' }
                     },
                     employees: function(EmployeesFactory) {
-                        EmployeesFactory.getEmployees()
-                            .then(function(response) {
-                                return response;
-                        })
+                        return EmployeesFactory.getEmployees() 
                     },
                     teams: function(TeamsService) {
                         TeamsService.setTest("123")
