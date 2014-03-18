@@ -42,12 +42,12 @@
                 <div class="col-xs-12 col-lg-8 col-sm-12">
                     <div>
                         <tabset>
-                            <tab select="setState('tab1')">
+                            <tab select="setState('main.tab1')">
                                 <tab-heading><i class="fa fa-users"></i> Tab1</tab-heading>
                                 <hr>
                                 <div ui-view></div>
                             </tab>
-                            <tab select="setState('tab2')">
+                            <tab select="setState('main.tab2')">
                                 <tab-heading><i class="fa fa-user"></i> Tab2</tab-heading>
                                 <hr>
                                 <div ui-view></div>
@@ -172,6 +172,9 @@
         
         <script src="common/services/constants/constants.js"></script>
         <script src="common/services/constants/constantsService.js"></script>
+        
+        <script src="common/services/teams/teams.js"></script>
+        <script src="common/services/teams/teamsService.js"></script>
         
         <script src="common/services/employees/employees.js"></script>
         <script src="common/services/employees/employeesService.js"></script>

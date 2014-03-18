@@ -10,30 +10,40 @@
     function Config($stateProvider) {
         $stateProvider
             .state('main', {
+                url: '/',
+                templateUrl: 'app/main/tab1/tab1.tpl.html',
                 resolve: {
                     simpleObj:  function() {
                         return { value: 'simple!' }
                     },
-                    employees: function(employeesFactory) {
-                        employeesFactory.getEmployees()
+                    employees: function(EmployeesFactory) {
+                        EmployeesFactory.getEmployees()
                             .then(function(response) {
                                 return response;
                         })
+                    },
+                    teams: function(TeamsService) {
+                        TeamsService.setTest("123")
+                        TeamsService.getTest()
                     }
                 },
-                controller: function($scope, simpleObj) {
-                    $scope.simple = simpleObj.value
-                    console.log($scope.simple)
+                controller: function($scope, simpleObj, employees, teams) {
+                    console.log(simpleObj.value)
+                    console.log(employees)
+                    console.log(teams)
                 }
             })
-            .state('tab1', {
-                url: '/tab1',
+            .state('main.tab1', {
+                url: 'tab1',
                 templateUrl: 'app/main/tab1/tab1.tpl.html',
                 controller: 'Tab1Ctrl'
             })
-            .state('tab2', {
-                url: '/tab2',
-                templateUrl: 'app/main/tab2/tab2.tpl.html',
+            .state('main.tab2', {
+                url: 'tab2',
+                views: {
+                    "view": { templateUrl: 'app/main/tab2/tab2.tpl.html' },
+                },
+//                templateUrl: 'app/main/tab2/tab2.tpl.html',
                 controller: 'Tab2Ctrl'
             })
     }

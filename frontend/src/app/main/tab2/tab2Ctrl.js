@@ -5,11 +5,12 @@
         .module('my-app.tab2')
         .controller('Tab2Ctrl', Tab2Ctrl)
 
-    Tab2Ctrl.$inject = ['$rootScope', '$scope'] //simpleObj
+    Tab2Ctrl.$inject = ['$rootScope', '$scope', 'simpleObj']
 
-    function Tab2Ctrl($rootScope, $scope) {
+    function Tab2Ctrl($rootScope, $scope, simpleObj) {
 
         console.log("Tab2Ctrl")
+        console.log(simpleObj)
 
         $scope.employees = []
         $scope.isCollapsed = false

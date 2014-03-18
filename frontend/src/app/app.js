@@ -3,12 +3,9 @@
 
     angular
         .module('my-app', [
-    
             'ui.router',
             'ui.bootstrap',
-            'LocalStorageModule',
-
-        
+            
             'my-app.common',
             'my-app.main'
         ])
@@ -19,7 +16,7 @@
     
     function Config( $urlRouterProvider, $locationProvider) {
         $locationProvider.html5Mode(false)
-        $urlRouterProvider.otherwise('/tab1')
+        $urlRouterProvider.otherwise('/')
     }
 
     Run.$inject = ['$rootScope', 'appService']

@@ -5,11 +5,12 @@
         .module('my-app.tab1')
         .controller('Tab1Ctrl', Tab1Ctrl)
 
-    Tab1Ctrl.$inject = ['$rootScope', '$scope']
+    Tab1Ctrl.$inject = ['$rootScope', '$scope', 'simpleObj']
     
-    function Tab1Ctrl( $rootScope, $scope) {
+    function Tab1Ctrl( $rootScope, $scope, simpleObj) {
         
         console.log("Tab1Ctrl")
+        console.log(simpleObj)
         
     }
 
