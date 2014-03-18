@@ -3,6 +3,7 @@
 
     angular
         .module('my-app', [
+    
             'ui.router',
             'ui.bootstrap',
             'LocalStorageModule',

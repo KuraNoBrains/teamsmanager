@@ -3,7 +3,7 @@
 
     angular
         .module('my-app')
-            .service('appService', AppService)
+        .service('appService', AppService)
 
     AppService.$inject = ['$state', '$stateParams']
 

@@ -8,9 +8,12 @@
             function($http) {
                 return { 
                     getEmployees: function() {
-                        return $http.get('common/employees/employees.json')
-                            .success(function(employees) {
-                                return employees
+                        return $http.get('common/services/employees/employees.json')
+                            .success(function(data, status, headers, config) {
+                                return data
+                            })
+                            .error(function(data, status, headers, config) {
+                                return data
                             })
                     }
                 }

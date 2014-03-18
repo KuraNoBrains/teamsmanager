@@ -1,13 +1,14 @@
 (function (angular) {
-    'use strict';
+    'use strict'
 
     angular
         .module('my-app.common.app-version', [])
-        .config(Config);
+            .config(Config)
 
-    Config.$inject = [];
+    Config.$inject = []
+    
     function Config() {
 
     }
 
-}(window.angular));
+}(window.angular))

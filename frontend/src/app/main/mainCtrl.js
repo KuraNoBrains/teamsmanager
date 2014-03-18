@@ -13,11 +13,8 @@
             $state.go(stateID)
         }
         
-        console.log($rootScope.app.AppConfig)
-
 //        $rootScope.tooltips = AppConfig.tooltips
 //        $rootScope.closeAlert = alertService.closeAlert
-        
     }
 
 }(window.angular))

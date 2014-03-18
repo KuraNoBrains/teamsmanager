@@ -2,19 +2,16 @@
     'use strict'
 
     angular
-            .module('my-app.tab2')
-            .controller('Tab2Ctrl', Tab2Ctrl)
+        .module('my-app.tab2')
+        .controller('Tab2Ctrl', Tab2Ctrl)
 
-    Tab2Ctrl.$inject = ['$rootScope', '$scope', 'simpleObj'] //$scope, staffStorage, projectsStorage, alertService, AppConfig
+    Tab2Ctrl.$inject = ['$rootScope', '$scope'] //simpleObj
 
-    function Tab2Ctrl($rootScope, $scope, simpleObj) {
+    function Tab2Ctrl($rootScope, $scope) {
 
         console.log("Tab2Ctrl")
-        console.log(simpleObj.value)
-        console.log(employees)
 
-        $scope.employees = employees
-
+        $scope.employees = []
         $scope.isCollapsed = false
 
 //        $scope.projects = projectsStorage.projects

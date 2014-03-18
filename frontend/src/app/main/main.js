@@ -3,7 +3,7 @@
 
     angular
         .module('my-app.main', ['my-app.tab1', 'my-app.tab2', 'my-app.teams'])
-        .config(Config)
+            .config(Config)
 
     Config.$inject = ['$stateProvider']
 
@@ -12,9 +12,7 @@
             .state('main', {
                 resolve: {
                     simpleObj:  function() {
-                        return {
-                            value: 'simple!'
-                        }
+                        return { value: 'simple!' }
                     },
                     employees: function(employeesFactory) {
                         employeesFactory.getEmployees()
@@ -22,6 +20,10 @@
                                 return response;
                         })
                     }
+                },
+                controller: function($scope, simpleObj) {
+                    $scope.simple = simpleObj.value
+                    console.log($scope.simple)
                 }
             })
             .state('tab1', {
@@ -32,12 +34,6 @@
             .state('tab2', {
                 url: '/tab2',
                 templateUrl: 'app/main/tab2/tab2.tpl.html',
-
-//                resolve: {
-//                    employees: function(employeesFactory) {
-//                        employeesFactory.getEmployees()
-//                    }
-//                },
                 controller: 'Tab2Ctrl'
             })
     }

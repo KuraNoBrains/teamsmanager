@@ -5,7 +5,8 @@
         .module('my-app.common', [
             'my-app.common.app-version',
             'my-app.common.constants',
-            'my-app.common.employees'
+            'my-app.common.employees',
+            'my-app.common.typeahead'
         ])
         .config(Config)
 
