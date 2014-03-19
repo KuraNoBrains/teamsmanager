@@ -1,124 +1,38 @@
 <!DOCTYPE html>
 <html ng-app="my-app">
     <head>
-
         <meta charset="utf-8">
-
-        <title>My AngularJS App</title>
-
-        <!-- In production all css should be concatenated and minified into single css file -->
-        
+        <title>Teams manager</title>
         <link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap.css">
         <!--<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap-theme.min.css">-->
         <link rel="stylesheet" type="text/css" href="../vendor/bootstrap/css/bootstrap-responsive.min.css">
         <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-        
         <link rel="stylesheet" type="text/css" href="../vendor/ng-grid/css/ng-grid.min.css" />
         <!--<link rel="stylesheet" type="text/css" href="css/angular-table.css" />-->
         <link rel="stylesheet" type="text/css" href="../vendor/tagmanager/css/tagmanager.css" />
-        
         <link rel="stylesheet" type="text/css" href="common/common.css">
-        
         <link rel="stylesheet" type="text/css" href="app/main/main.css">
-        <link rel="stylesheet" type="text/css" href="app/main/tab1/tab1.css">
-        <link rel="stylesheet" type="text/css" href="app/main/tab2/tab2.css">
+        <link rel="stylesheet" type="text/css" href="app/main/tabs/tab1/tab1.css">
+        <link rel="stylesheet" type="text/css" href="app/main/tabs/tab2/tab2.css">
         <link rel="stylesheet" type="text/css" href="app/main/teams/teams.css">
-
     </head>
 
-    <body ng-cloak ng-controller="MainCtrl">
-
-        <!-- {{app.$state}} <a ui-sref="home">Home</a> -->
-
+    <body ng-cloak>
         <div class="container">
-            <img src="assets/images/logo.gif"> - version - <span app-version></span>
+            <img width="100px" src="assets/images/Team.jpg"> TeamsManager.<span app-version></span>
             <hr>
             <div class="row">
-
 <!--                <div>
                     <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
                 </div>-->
-
-                <div class="col-xs-12 col-lg-8 col-sm-12">
-                    <div>
-                        <tabset>
-                            <tab select="setState('main.tab1')">
-                                <tab-heading><i class="fa fa-users"></i> Tab1</tab-heading>
-                                <hr>
-                                <div ui-view></div>
-                            </tab>
-                            <tab select="setState('main.tab2')">
-                                <tab-heading><i class="fa fa-user"></i> Tab2</tab-heading>
-                                <hr>
-                                <div ui-view></div>
-                            </tab>
-                        </tabset>
-                    </div>
-                </div>
-
-                <div class="col-xs-12 col-lg-4 col-sm-12" ng-controller="TeamsCtrl"> 
-
-                    <form class="form-inline" role="form" name="projectForm" ng-submit="addProject(projectName)" novalidate>
-
-                        <div class="form-group" ng-class="{ 'has-error' : projectForm.projectTitle.$invalid && !projectForm.projectTitle.$pristine }">
-                            <div class="input-group">
-                                <input type="text" name="projectTitle" class="form-control" 
-                                       placeholder="Project Name" ng-model="projectName"
-                                       ng-pattern="/^[a-zA-Z0-9 .-]+$/" ng-minlength="3" required>
-                                <div class="input-group-btn">
-                                    <button type="submit" class="btn btn-primary" ng-disabled="projectForm.$invalid"> 
-                                        <i class="fa fa-plus-circle"></i> 
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group" ng-class="{ 'has-error' : projectForm.projectTitle.$invalid && !projectForm.projectTitle.$pristine }">
-                            <p ng-show="projectForm.projectTitle.$error.required && !projectForm.projectTitle.$pristine" class="help-block">Project Name must not be empty</p>
-                            <p ng-show="projectForm.projectTitle.$error.minlength" class="help-block">Project Name must contain at least 3 chars</p>
-                            <p ng-show="projectForm.projectTitle.$error.pattern" class="help-block">Project Name must contain only A-Z chars and digits</p>
-                        </div>
-                    </form>
-
-                    <hr>
-
-                    <h3>Projects list</h3>
-
-                    <accordion close-others="true">
-                        <accordion-group ng-repeat="project in projects track by project.id" is-open="project.isActive">
-                            <accordion-heading>
-                                <i class="pull-left glyphicon" 
-                                   ng-class="{'glyphicon-chevron-down': project.isActive, 'glyphicon-chevron-right': !project.isActive}"></i>
-                                <span style='margin-left: 10px;'>{{project.title}}</span> 
-                                <i class="pull-right fa fa-minus-circle" ng-click="deleteProject(project)"></i>
-                            </accordion-heading>
-
-                            <strong>Employees in the project:</strong>
-                            <ul>
-                                <li ng-repeat="employee in project.employees track by $index">
-                                    <span popover-placement="bottom" popover-title="Detailed employee info"
-                                          popover="{{employee.name}}" popover-trigger="mouseenter">{{employee.name}} 
-                                    </span>
-                                    <span ng-controller="EmployeesCtrl" ng-click="deleteEmployeeFromProject(employee, project)"> 
-                                        <i class="pull-right fa fa-minus-circle" ></i> 
-                                    </span>
-                                </li>
-                            </ul>
-
-                        </accordion-group>
-                    </accordion>
-
-                </div>
-
+                <div ui-view="tabs" class="col-xs-12 col-lg-8 col-sm-12"></div>
+                <div ui-view="teams" class="col-xs-12 col-lg-4 col-sm-12"></div>
             </div>
             <hr>
-            Dataart 2014
+            TeamsManager 2014
         </div>
 
-        <!-- In production all js should be concatenated and minified into single js file -->
-
         <!-- JavaScript vendor files -->
-        
         <script type="text/javascript" src="../vendor/jquery/jquery-1.10.2.min.js"></script>
         <script type="text/javascript" src="../vendor/jquery/jquery-ui-1.10.4.custom.min.js"></script>
         <script type="text/javascript" src="../vendor/jquery/tagmanager.js"></script>
@@ -136,34 +50,30 @@
         <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.0/angular-ui-router.js"></script>      
         <script type="text/javascript" src="../vendor/ng-grid/js/ng-grid-2.0.7.min.js"></script>
         <!--<script type="text/javascript" src="lib/angular/angular-table.js"></script>-->
-
         <!--<script type="text/javascript" src="lib/angular/angular-animate.js"></script>-->
         <script type="text/javascript" src="../vendor/angular/angular-local-storage.js"></script>
         <script type="text/javascript" src="../vendor/angular/angular-resource.min.js"></script>
 
-        
-        
         <!-- JavaScript application files -->
-        
         <script src="app/app.js"></script>
         <script src="app/appService.js"></script>
 
         <script src="app/main/main.js"></script>
         <script src="app/main/mainCtrl.js"></script>
 
-        <script src="app/main/tab1/tab1.js"></script>
-        <script src="app/main/tab1/tab1Ctrl.js"></script>
-
-        <script src="app/main/tab2/tab2.js"></script>
-        <script src="app/main/tab2/tab2Ctrl.js"></script>
-
         <script src="app/main/teams/teams.js"></script>
         <script src="app/main/teams/teamsCtrl.js"></script>
+        
+        <script src="app/main/tabs/tabs.js"></script>
+        <script src="app/main/tabs/tabsCtrl.js"></script>
+        
+        <script src="app/main/tabs/tab1/tab1.js"></script>
+        <script src="app/main/tabs/tab1/tab1Ctrl.js"></script>
 
-        
-        
+        <script src="app/main/tabs/tab2/tab2.js"></script>
+        <script src="app/main/tabs/tab2/tab2Ctrl.js"></script>
+
         <!-- JavaScript common files -->
-        
         <script src="common/common.js"></script>
         
         <script src="common/services/app-version/app-version.js"></script>

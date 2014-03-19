@@ -9,15 +9,15 @@
                 return { 
                     getEmployees: function() {
                         return $http.get('common/services/employees/employees.json')
-                            .success(function(data, status, headers, config) {
-                                return data
+                            .success(function(employees) {
+                                return employees
                             })
-                            .error(function(data, status, headers, config) {
+                            .error(function(data) {
                                 return data
                             })
                     }
                 }
-            }),
+            })
             
 //            function($resource) {
 //                return $resource('common/employees/employees.json', {}, {
@@ -27,15 +27,5 @@
 //                    }
 //                })
 //            }),
-
-            function() {
-                return { 
-                    test: function() { 
-                        return {
-                            answer: 123
-                        }
-                    }
-                }
-            }
 
 }(window.angular))          

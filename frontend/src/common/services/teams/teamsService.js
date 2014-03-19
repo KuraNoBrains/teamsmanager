@@ -7,16 +7,37 @@
 
             function(localStorageService) {
                 
-                var teamService = this
+                var teamService = {}
                 
-                teamService.getTest = function(){
-                    return localStorageService.get("test")
+                teamService.getTeams = function() {
+                    return localStorageService.get("teams") || []
                 }
                 
-                teamService.setTest = function(value){
-                    localStorageService.add("test", JSON.stringify(value))
-//                    localStorageService.set("test", value)
+                teamService.getActiveTeam = function() {
+                    return {}
                 }
+                
+                teamService.saveTeams = function(){
+                    localStorageService.add("teams", JSON.stringify(teamService.teams))
+                }
+                
+                teamService.addTeam = function(team){
+                    teamService.teams.push(team)
+                    teamService.saveTeams()
+                }
+                
+                teamService.addEmployeeToTeam = function(employee, team){
+                     for (var i in teamService.teams) {
+                        if (teamService.teams[i].id == team.id) {
+                            teamService.teams[i].employees.push(employee.entity)
+                            break
+                        }
+                    }
+                    teamService.saveTeams()
+                }
+                
+                teamService.teams = teamService.getTeams()
+                teamService.activeTeam = teamService.getActiveTeam()
                 
                 return teamService
             })

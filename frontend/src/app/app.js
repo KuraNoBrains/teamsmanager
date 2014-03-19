@@ -2,13 +2,7 @@
     'use strict'
 
     angular
-        .module('my-app', [
-            'ui.router',
-            'ui.bootstrap',
-            
-            'my-app.common',
-            'my-app.main'
-        ])
+        .module('my-app', [ 'my-app.common', 'my-app.main' ])
         .config(Config)
         .run(Run)
 

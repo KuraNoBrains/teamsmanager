@@ -43,10 +43,9 @@
                     scope.prefilledEmployees.push(employee.name)
                 })
 
-                scope.$watch(attrs.ngModel, function(value) {
-                    console.log(value)
-                }
-                )
+//                scope.$watch(attrs.ngModel, function(value) {
+//                    console.log(value)
+//                })
 
 
 //            scope.$watch('prefilledEmployees', function(newValue) {

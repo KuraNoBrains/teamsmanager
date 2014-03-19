@@ -2,7 +2,7 @@
     'use strict'
 
     angular
-        .module('my-app.tab1', [])
+        .module('my-app.tabs.tab1', [])
         .config(Config)
 
     Config.$inject = []

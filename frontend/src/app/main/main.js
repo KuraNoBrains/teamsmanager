@@ -2,7 +2,7 @@
     'use strict'
 
     angular
-        .module('my-app.main', ['my-app.tab1', 'my-app.tab2', 'my-app.teams'])
+        .module('my-app.main', [ 'ui.router', 'ui.bootstrap', 'my-app.tabs', 'my-app.teams' ])
         .config(Config)
 
     Config.$inject = ['$stateProvider']
@@ -11,36 +11,36 @@
         $stateProvider
             .state('main', {
                 url: '/',
-                templateUrl: 'app/main/tab1/tab1.tpl.html',
-                resolve: {
-                    simpleObj:  function() {
-                        return { value: 'simple!' }
+                views: {
+                    "tabs": { 
+                        templateUrl: 'app/main/tabs/tabs.tpl.html',
+                        controller: 'TabsCtrl'
                     },
+                    "teams": { 
+                        templateUrl: 'app/main/teams/teams.tpl.html',
+                        controller: 'TeamsCtrl'
+                    }
+                },
+                templateUrl: 'app/main/tabs/tab1/tab1.tpl.html',
+                resolve: {
+//                    simpleObj:  function() {
+//                        return { value: 'simple!' }
+//                    },
                     employees: function(EmployeesFactory) {
                         return EmployeesFactory.getEmployees() 
                     },
-                    teams: function(TeamsService) {
-                        TeamsService.setTest("123")
-                        TeamsService.getTest()
-                    }
+                    TeamsService: "TeamsService"
                 },
-                controller: function($scope, simpleObj, employees, teams) {
-                    console.log(simpleObj.value)
-                    console.log(employees)
-                    console.log(teams)
-                }
+                controller: 'MainCtrl'
             })
             .state('main.tab1', {
                 url: 'tab1',
-                templateUrl: 'app/main/tab1/tab1.tpl.html',
+                templateUrl: 'app/main/tabs/tab1/tab1.tpl.html',
                 controller: 'Tab1Ctrl'
             })
             .state('main.tab2', {
                 url: 'tab2',
-                views: {
-                    "view": { templateUrl: 'app/main/tab2/tab2.tpl.html' },
-                },
-//                templateUrl: 'app/main/tab2/tab2.tpl.html',
+                templateUrl: 'app/main/tabs/tab2/tab2.tpl.html',
                 controller: 'Tab2Ctrl'
             })
     }

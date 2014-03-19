@@ -9,9 +9,9 @@
     
     function MainCtrl( $scope, $rootScope, $state) { //$scope, $rootScope, $state, localStorageService, alertService, AppConfig
       
-        $scope.setState = function(stateID) {
-            $state.go(stateID)
-        }
+//        $scope.setState = function(stateID) {
+//            $state.go(stateID)
+//        }
         
 //        $rootScope.tooltips = AppConfig.tooltips
 //        $rootScope.closeAlert = alertService.closeAlert
