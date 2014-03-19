@@ -3,8 +3,11 @@
     <div ng-style="{ 'cursor': row.cursor }" ng-repeat="col in renderedColumns" class="ngCell"
          ng-class="col.colIndex()" popover-placement="bottom" popover-title="Detailed employee info"
          popover="{{tooltips.seeDetails}}" popover-trigger="mouseenter">
+        
         <div class="ngVerticalBar" ng-style="{height: rowHeight}" ng-class="{ ngVerticalBarVisible: !$last }"></div>
+        
         <div ng-click="isCollapsed=!isCollapsed" ng-cell></div>
+        
     </div>
     
 </div>

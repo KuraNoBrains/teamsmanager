@@ -14,9 +14,6 @@
         app.state           = $state
         app.stateParams     = $stateParams
         
-//        app.AppConfig       = AppConfig
-//        app.employees       = EmployeesFactory.getEmployees()
-        
     }
 
 }(window.angular))

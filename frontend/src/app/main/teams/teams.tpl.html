@@ -18,35 +18,44 @@
         <p ng-show="teamForm.teamTitle.$error.minlength" class="help-block">Team Name must contain at least 3 chars</p>
         <p ng-show="teamForm.teamTitle.$error.pattern" class="help-block">Team Name must contain only A-Z chars and digits</p>
     </div>
-    
+
 </form>
 
 <hr>
 
-<h3>Teams list</h3>
+<div ng-switch on="teams">
+    <div ng-switch-when="">No Teams</div>
+    <div ng-switch-default>
+        <h3>Teams list</h3>
+        <accordion close-others="true">
+            <accordion-group ng-repeat="team in teams track by team.id" is-open="team.isActive">
+                <accordion-heading>
+                    <i class="pull-left glyphicon" 
+                       ng-class="{'glyphicon-chevron-down': team.isActive, 'glyphicon-chevron-right': !team.isActive}"></i>
+                    <span style='margin-left: 10px;'>{{team.title}}</span> 
+                    <i class="pull-right fa fa-minus-circle" ng-click="deleteTeam(team)"></i>
+                </accordion-heading>
+                <div ng-switch on="team.employees">
+                    <div ng-switch-when="">No Employees</div>
+                    <div ng-switch-default>
+                        <strong>Employees in the team:</strong>
+                        <ul>
+                            <li ng-repeat="employee in team.employees track by $index">
+                                <span popover-placement="bottom" popover-title="Detailed employee info"
+                                      popover="{{employee.name}}" popover-trigger="mouseenter">{{employee.name}} 
+                                </span>
+                                <span ng-click="deleteEmployeeFromTeam(employee, team)"> 
+                                    <i class="pull-right fa fa-minus-circle" ></i> 
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
+</div>
 
-<!--ng-switch-->
 
-<accordion close-others="true">
-    <accordion-group ng-repeat="team in teams track by team.id" is-open="team.isActive">
-        <accordion-heading>
-            <i class="pull-left glyphicon" 
-               ng-class="{'glyphicon-chevron-down': team.isActive, 'glyphicon-chevron-right': !team.isActive}"></i>
-            <span style='margin-left: 10px;'>{{team.title}}</span> 
-            <i class="pull-right fa fa-minus-circle" ng-click="deleteTeam(team)"></i>
-        </accordion-heading>
 
-        <strong>Employees in the team:</strong>
-        <ul>
-            <li ng-repeat="employee in team.employees track by $index">
-                <span popover-placement="bottom" popover-title="Detailed employee info"
-                      popover="{{employee.name}}" popover-trigger="mouseenter">{{employee.name}} 
-                </span>
-                <span ng-controller="EmployeesCtrl" ng-click="deleteEmployeeFromTeam(employee, team)"> 
-                    <i class="pull-right fa fa-minus-circle" ></i> 
-                </span>
-            </li>
-        </ul>
 
-    </accordion-group>
-</accordion>

@@ -5,14 +5,12 @@
         .module('my-app.tabs.tab2')
         .controller('Tab2Ctrl', Tab2Ctrl)
 
-    Tab2Ctrl.$inject = ['$rootScope', '$scope', 'employees', 'TeamsService']
+    Tab2Ctrl.$inject = ['$scope', 'employees', 'TeamsService', 'AppConfig', 'AlertsService']
 
-    function Tab2Ctrl($rootScope, $scope, employees, TeamsService) {
+    function Tab2Ctrl($scope, employees, TeamsService, AppConfig, AlertsService) {
 
         $scope.isCollapsed = false
         $scope.employees = employees.data
-
-//        $scope.projects = projectsStorage.projects
 
         $scope.filterOptions = {
             filterText: ''
@@ -45,33 +43,22 @@
         }
 
         $scope.addEmployeeToTeam = function(employee) {
-
-
-
-
-
-
-            var activeProject = projectsStorage.getActiveProject()
-            if (!_.isEmpty(activeProject)) {
-
-                if (activeProject.employees.indexOf(employee) > -1) {
-                    alertService.add(AppConfig.alerts.types.errorType, AppConfig.alerts.messages.employeeDuplicateError)
-                } else {
-                    projectsStorage.addEmployeeToProject(employee, activeProject)
-                    alertService.add(AppConfig.alerts.types.infoType, AppConfig.alerts.messages.employeeAdded)
-                }
+            
+            // TODO: promise
+            
+            var response = TeamsService.addEmployeeToActiveTeam(employee)
+            if(response.isError){
+                 switch(response.errorCode) {
+                    case 1:
+                        AlertsService.add(AppConfig.alerts.types.errorType, AppConfig.alerts.messages.employeeAddError)
+                        break
+                    case 2:
+                        AlertsService.add(AppConfig.alerts.types.errorType, AppConfig.alerts.messages.employeeDuplicateError)
+                        break
+                 }
             } else {
-                alertService.add(AppConfig.alerts.types.errorType, AppConfig.alerts.messages.employeeAddError)
+                AlertsService.add(AppConfig.alerts.types.infoType, AppConfig.alerts.messages.employeeAdded)
             }
-            
-            
-            
-            
-        }
-
-        $scope.deleteEmployeeFromProject = function(employee, project) {
-            projectsStorage.deleteEmployeeFromProject(employee, project)
-            alertService.add(AppConfig.alerts.types.infoType, AppConfig.alerts.messages.employeeDeleted)
         }
 
     }

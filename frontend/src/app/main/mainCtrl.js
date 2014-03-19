@@ -5,16 +5,12 @@
         .module('my-app.main')
         .controller('MainCtrl', MainCtrl)
 
-    MainCtrl.$inject = ['$scope', '$rootScope', '$state']
+    MainCtrl.$inject = []
     
-    function MainCtrl( $scope, $rootScope, $state) { //$scope, $rootScope, $state, localStorageService, alertService, AppConfig
+    function MainCtrl() {
       
-//        $scope.setState = function(stateID) {
-//            $state.go(stateID)
-//        }
-        
 //        $rootScope.tooltips = AppConfig.tooltips
-//        $rootScope.closeAlert = alertService.closeAlert
+    
     }
 
 }(window.angular))

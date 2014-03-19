@@ -2,7 +2,7 @@
     'use strict'
 
     angular
-        .module('my-app.main', [ 'ui.router', 'ui.bootstrap', 'my-app.tabs', 'my-app.teams' ])
+        .module('my-app.main', [ 'ui.router', 'ui.bootstrap', 'my-app.alerts', 'my-app.tabs', 'my-app.teams' ])
         .config(Config)
 
     Config.$inject = ['$stateProvider']
@@ -19,17 +19,19 @@
                     "teams": { 
                         templateUrl: 'app/main/teams/teams.tpl.html',
                         controller: 'TeamsCtrl'
+                    },
+                    "alerts": { 
+                        templateUrl: 'app/main/alerts/alerts.tpl.html',
+                        controller: 'AlertsCtrl'
                     }
                 },
                 templateUrl: 'app/main/tabs/tab1/tab1.tpl.html',
                 resolve: {
-//                    simpleObj:  function() {
-//                        return { value: 'simple!' }
-//                    },
                     employees: function(EmployeesFactory) {
                         return EmployeesFactory.getEmployees() 
-                    },
-                    TeamsService: "TeamsService"
+                    }
+//                    AlertsService: "AlertsService",
+//                    TeamsService: "TeamsService"
                 },
                 controller: 'MainCtrl'
             })

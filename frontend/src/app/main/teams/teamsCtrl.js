@@ -5,38 +5,29 @@
         .module('my-app.teams')
         .controller('TeamsCtrl', TeamsCtrl)
 
-    TeamsCtrl.$inject = ['$scope', 'TeamsService']
+    TeamsCtrl.$inject = ['$scope', 'TeamsService', 'AppConfig', 'AlertsService']
     
-    function TeamsCtrl($scope, TeamsService) {
+    function TeamsCtrl($scope, TeamsService, AppConfig, AlertsService) {
 
         $scope.teams = TeamsService.teams
 
-        $scope.getRandomInt = function(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min
-        }
-
         $scope.addTeam = function(teamName) {
             if ($scope.teamForm.$valid) {
-                var newTeam = {
-                    id: $scope.getRandomInt(0, 100000000000),
-                    title: teamName,
-                    isActive: true,
-                    employees: []
-                }
+                TeamsService.addTeam(teamName)
                 $scope.teamName = ''
                 $scope.teamForm.$setPristine(true)
-
-                TeamsService.addTeam(newTeam)
-                
-//                alertService.add(AppConfig.alerts.types.infoType, AppConfig.alerts.messages.projectAdded)
+                AlertsService.add(AppConfig.alerts.types.infoType, AppConfig.alerts.messages.projectAdded)
             }
         }
 
-        $scope.deleteTeam = function(project) {
-            
-//            projectsStorage.deleteProject(project)
-//            alertService.add(AppConfig.alerts.types.infoType, AppConfig.alerts.messages.projectDeleted)
-            
+        $scope.deleteTeam = function(team) {
+            TeamsService.deleteTeam(team)
+            AlertsService.add(AppConfig.alerts.types.infoType, AppConfig.alerts.messages.projectDeleted)
+        }
+        
+        $scope.deleteEmployeeFromTeam = function(employee, team) {
+            TeamsService.deleteEmployeeFromTeam(employee, team)
+            AlertsService.add(AppConfig.alerts.types.infoType, AppConfig.alerts.messages.employeeDeleted)
         }
 
     }

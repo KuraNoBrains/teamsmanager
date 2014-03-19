@@ -9,8 +9,6 @@
     
     function Tab1Ctrl($rootScope, $scope, employees, TeamsService) {
         
-        console.log("Tab1Ctrl")
-        
     }
 
 }(window.angular))
