@@ -5,43 +5,47 @@
         .module('my-app.common.typeahead')
         .directive('employeesTypeaheadTagmanager', employeesTypeaheadTagmanager)
 
-    employeesTypeaheadTagmanager.$inject = ['$parse']
+    employeesTypeaheadTagmanager.$inject = ['$parse'] //+service
 
     function employeesTypeaheadTagmanager($parse) {
 
         return {
             restrict: 'A',
-//        replace: false,
+            replace: false,
             transclude: 'true',
 //        require: 'ngModel',
 //        scope: true,
             scope: {
 //            projects: '=employeesTypeahead',
 //            filter: '&',
-                ngModel: '='
-//            addEmployee: '&',
-//            deleteEmployee: '&'
+                ngModel: '=',
+                addEmployee: '&',
+                deleteEmployee: '&'
             },
-//        controller: 'EmployeesCtrl',
 
             link: function(scope, element, attrs, ctrl) {
 
                 var addEmployeeToProjectInvoker = $parse(scope, attrs.addEmployee)
                 var deleteEmployeeFromProjectInvoker = $parse(attrs.deleteEmployee)
+                
+                scope.teams = scope.ngModel
 
-                scope.projects = scope.ngModel
-                scope.activeProject = {}
-                scope.prefilledEmployees = []
+                console.log("employeesTypeaheadTagmanager")
+                console.log(scope.teams)
 
-                angular.forEach(scope.projects, function(project) {
-                    if (project.isActive === true) {
-                        scope.activeProject = project
-                    }
-                })
-
-                angular.forEach(scope.activeProject.employees, function(employee) {
-                    scope.prefilledEmployees.push(employee.name)
-                })
+               
+//                scope.activeProject = {}
+//                scope.prefilledEmployees = []
+//
+//                angular.forEach(scope.teams, function(team) {
+//                    if (team.isActive === true) {
+//                        scope.activeProject = team
+//                    }
+//                })
+//
+//                angular.forEach(scope.activeProject.employees, function(employee) {
+//                    scope.prefilledEmployees.push(employee.name)
+//                })
 
 //                scope.$watch(attrs.ngModel, function(value) {
 //                    console.log(value)
@@ -66,8 +70,8 @@
                 })
 
                 var name = new Bloodhound({
-//            datumTokenizer: function(d) { return d.name },
                     datumTokenizer: function(d) {
+                        //return d.name
                         return Bloodhound.tokenizers.whitespace(d.name)
                     },
                     queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -95,8 +99,7 @@
 //                scope.addEmployeeToProject(data)
                     tagApi.tagsManager("pushTag", data.name)
                     element.typeahead('close')
-//                $parse(scope.ngModel).assign(scope, scope.projects)
-                    scope.$apply()
+//                    scope.$apply()
                 })
             }
         }

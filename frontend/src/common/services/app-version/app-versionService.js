@@ -3,6 +3,6 @@
 
     angular
         .module('my-app.common.app-version')
-        .value('version', '0.1');
+        .value('version', '0.7.1');
 
 }(window.angular));

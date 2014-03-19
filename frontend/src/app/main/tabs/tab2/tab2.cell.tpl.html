@@ -1,1 +1,4 @@
-<div ng-click="addEmployeeToTeam(row)">{{row.getProperty(col.field)}}</div>
+<div>
+    <a tooltip="{{AppConfig.tooltips.addEmployeeToProject}}" tooltip-append-to-body="true" 
+     tooltip-placement="top" ng-click="addEmployeeToTeam(row)">{{row.getProperty(col.field)}}</a>
+</div>

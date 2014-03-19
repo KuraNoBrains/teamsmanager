@@ -13,19 +13,19 @@
                     errorType:                  'danger'
                 },
                 messages: {
-                    projectAdded:               'Project was added',
-                    projectDeleted:             'Project was deleted',
-                    employeeAddError:           "To add employee to project please select project first by clicking on the project's name",
-                    employeeDuplicateError:     'Employee is already in project',
-                    employeeAdded:              'Employee was added to project',
-                    employeeDeleted:            'Employee was deleted from project'
+                    projectAdded:               'Team was added',
+                    projectDeleted:             'Team was deleted',
+                    employeeAddError:           "To add employee to the team please select team first by clicking on the team's name",
+                    employeeDuplicateError:     'Employee is already in the team',
+                    employeeAdded:              'Employee was added to the team',
+                    employeeDeleted:            'Employee was deleted from the team'
                 }
             },
             
             tooltips: {
-                addEmployeeToProject:           'Click to add employee to active project',
+                addEmployeeToProject:           'Click to add employee to the active team',
                 seeDetails:                     'Click to see details',
-                addButton:                      'Check if at least one project and employee is selected before adding',
+                addButton:                      'Check if at least one team and employee is selected before adding',
                 clearButton:                    'Will clear search and filter inputs'
             }
 
