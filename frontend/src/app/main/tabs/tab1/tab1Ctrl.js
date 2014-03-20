@@ -9,7 +9,16 @@
     
     function Tab1Ctrl($scope, employees, TeamsService) {
         
+        $scope.employees = employees.data
         $scope.teams = TeamsService.getTeams()
+        
+        
+        
+        
+        
+        
+        
+        
         
     }
 

@@ -10,13 +10,7 @@
     function TeamsCtrl($scope, TeamsService, AppConfig, AlertsService) {
 
         $scope.teams = TeamsService.teams
-        
-        $scope.employeeTips = 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. \n\
-                                Aenean commodo ligula eget dolor. Aenean massa. \n\
-                                Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \n\
-                                Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. \n\
-                                Nulla consequat massa quis enim. \n\
-                                Donec pede justo, fringilla vel, aliquet nec, vulputate eget, etc...'
+        $scope.employeeTips = AppConfig.employeesDetailedInfo
 
         $scope.addTeam = function(teamName) {
             if ($scope.teamForm.$valid) {
