@@ -1,8 +1,10 @@
- <form class="form-inline" role="form" name="typeaheadForm" novalidate>
+<!--<employees-typeahead teams="teams"></employees-typeahead>--> 
+
+<form class="form-inline" role="form" name="typeaheadForm" novalidate>
     <div class="form-group">
          <div class="input-group">
              
-            <input type="text" placeholder="Typeahead, Tag Manager" employees-typeahead-tagmanager />
+            <!--<input type="text" placeholder="Typeahead, Tag Manager" employees-typeahead-tagmanager />-->
             
 <!--            <input type="text" placeholder="Typeahead, Tag Manager"
                    employees-typeahead-tagmanager
@@ -16,6 +18,25 @@
                 </button>
             </div>-->
             
+                <tags-input ng-model="tags"
+                            custom-class="bootstrap"
+                            placeholder="Add a movie"
+                            replace-spaces-with-dashes="false"
+                            on-tag-added="loadTags1($tag)"
+                            on-tag-removed="loadTags2($tag)">
+                    <auto-complete source="loadTags($query)"
+                                   min-length="0">
+                    </auto-complete>
+                </tags-input>
+                
+                <br/>
+
+                <button class="btn btn-primary" ng-disabled="true"> 
+                    <i class="fa fa-plus-circle"></i> 
+                </button>
+                    
         </div>
     </div>
 </form>
+
+

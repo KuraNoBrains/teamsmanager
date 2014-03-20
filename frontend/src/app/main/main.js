@@ -2,7 +2,7 @@
     'use strict'
 
     angular
-        .module('my-app.main', [ 'ui.router', 'ui.bootstrap', 'my-app.alerts', 'my-app.tabs', 'my-app.teams' ])
+        .module('my-app.main', [ 'ui.router', 'ui.bootstrap', 'my-app.alerts', 'my-app.tabs', 'my-app.teams', 'ngTagsInput'])
         .config(Config)
 
     Config.$inject = ['$stateProvider']
@@ -30,6 +30,7 @@
                     employees: function(EmployeesFactory) {
                         return EmployeesFactory.getEmployees() 
                     },
+                    EmployeesFactory: "EmployeesFactory",
                     AlertsService: "AlertsService",
                     TeamsService: "TeamsService"
                 },

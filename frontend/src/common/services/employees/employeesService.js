@@ -6,7 +6,10 @@
         .factory('EmployeesFactory',
 
             function($http) {
-                return { 
+                return {
+                    
+//                    employeeeees: getEmployees(),
+                            
                     getEmployees: function() {
                         return $http.get('common/services/employees/employees.json')
                             .success(function(employees) {

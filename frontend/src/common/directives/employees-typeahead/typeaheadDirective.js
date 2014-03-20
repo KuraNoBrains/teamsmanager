@@ -14,23 +14,22 @@
             replace: false,
 //            transclude: 'true',
 //            require: 'ngModelTeams',
-//            scope: true,
-            scope: {
-                ngModelTeams: '=',
-                ngModelEmployees: '=',
-                addEmployee: '&',
-                deleteEmployee: '&'
-            },
+            scope: true,
+//            scope: {
+//                ngModelTeams: '=',
+//                ngModelEmployees: '=',
+//                addEmployee: '&',
+//                deleteEmployee: '&'
+//            },
             
             controller: 'Tab1Ctrl',
             
             link: function(scope, element, attrs, ctrl) {
 
-                var addEmployeeToTeamInvoker = $parse(attrs.addEmployee)
-                var deleteEmployeeFromTeamInvoker = $parse(attrs.deleteEmployee)
+//                var addEmployeeToTeamInvoker = $parse(attrs.addEmployee)
+//                var deleteEmployeeFromTeamInvoker = $parse(attrs.deleteEmployee)
                 
-//                scope.teams = TeamsService.teams
-                scope.teams = scope.ngModelTeams
+                scope.teams = TeamsService.teams
                 scope.activeTeam = {}
                 scope.prefilledEmployees = []
 
@@ -118,9 +117,9 @@
 
                 element.on('typeahead:selected', function(event, data) {
 //                    addEmployeeToTeamInvoker(scope, data)
-                    scope.addEmployeeToTeam(data)                   
+//                    scope.addEmployeeToTeam(data)                   
                     
-//                    TeamsService.addEmployeeToActiveTeam(data, true)
+                    TeamsService.addEmployeeToActiveTeam(data, true)
                     
                     tagApi.tagsManager("pushTag", data.name)
                     element.typeahead('close')
@@ -128,21 +127,21 @@
                     scope.$digest()
                 })
                 
-//                element.on('.tm-tag-remove:click', function(event, data) {
-//                    
-//                    console.log(event)
-//                    console.log(data)
-//                    
-////                    addEmployeeToTeamInvoker(scope, data)
-////                    scope.addEmployeeToTeam(data)                   
-//                    
+                element.on('.tm-tag-remove:click', function(event, data) {
+                    
+                    console.log(event)
+                    console.log(data)
+                    
+//                    addEmployeeToTeamInvoker(scope, data)
+//                    scope.addEmployeeToTeam(data)                   
+                    
 //                    TeamsService.addEmployeeToActiveTeam(data, true)
-////                    
+//                    
 //                    tagApi.tagsManager("pushTag", data.name)
 //                    element.typeahead('close')
 //                    
-////                    scope.$digest()
-//                })
+//                    scope.$digest()
+                })
             }
         }
     }
