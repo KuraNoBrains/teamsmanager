@@ -29,9 +29,9 @@
                 resolve: {
                     employees: function(EmployeesFactory) {
                         return EmployeesFactory.getEmployees() 
-                    }
-//                    AlertsService: "AlertsService",
-//                    TeamsService: "TeamsService"
+                    },
+                    AlertsService: "AlertsService",
+                    TeamsService: "TeamsService"
                 },
                 controller: 'MainCtrl'
             })

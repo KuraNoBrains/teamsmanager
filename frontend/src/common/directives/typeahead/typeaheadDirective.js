@@ -5,65 +5,86 @@
         .module('my-app.common.typeahead')
         .directive('employeesTypeaheadTagmanager', employeesTypeaheadTagmanager)
 
-    employeesTypeaheadTagmanager.$inject = ['$parse'] //+service
+    employeesTypeaheadTagmanager.$inject = ['$rootScope', '$parse', 'TeamsService'] //+service
 
-    function employeesTypeaheadTagmanager($parse) {
+    function employeesTypeaheadTagmanager($rootScope, $parse, TeamsService) {
 
         return {
             restrict: 'A',
             replace: false,
-            transclude: 'true',
-//        require: 'ngModel',
-//        scope: true,
-            scope: {
-//            projects: '=employeesTypeahead',
-//            filter: '&',
-                ngModel: '=',
-                addEmployee: '&',
-                deleteEmployee: '&'
-            },
-
+//            transclude: 'true',
+//            require: 'ngModelTeams',
+            scope: true,
+//            scope: {
+//                ngModelTeams: '=',
+//                ngModelEmployees: '=',
+//                addEmployee: '&',
+//                deleteEmployee: '&'
+//            },
+            
+            controller: 'Tab1Ctrl',
+            
             link: function(scope, element, attrs, ctrl) {
 
-                var addEmployeeToProjectInvoker = $parse(scope, attrs.addEmployee)
-                var deleteEmployeeFromProjectInvoker = $parse(attrs.deleteEmployee)
+//                var addEmployeeToTeamInvoker = $parse(attrs.addEmployee)
+//                var deleteEmployeeFromTeamInvoker = $parse(attrs.deleteEmployee)
                 
-                scope.teams = scope.ngModel
+                scope.teams = TeamsService.teams
+                scope.activeTeam = {}
+                scope.prefilledEmployees = []
 
-                console.log("employeesTypeaheadTagmanager")
-                console.log(scope.teams)
+                angular.forEach(scope.teams, function(team) {
+                    if (team.isActive === true) {
+                        scope.activeTeam = team
+                    }
+                })
 
-               
-//                scope.activeProject = {}
-//                scope.prefilledEmployees = []
-//
-//                angular.forEach(scope.teams, function(team) {
-//                    if (team.isActive === true) {
-//                        scope.activeProject = team
+                angular.forEach(scope.activeTeam.employees, function(employee) {
+                    scope.prefilledEmployees.push(employee.name)
+                })
+                
+                //TODO
+                $rootScope.$on('updateTeams', function(args) {
+                    scope.teams = TeamsService.teams
+                    if(!scope.$$phase) { 
+                        scope.$digest()
+//                        scope.$apply()
+                    }
+                })
+                
+//                $scope.$eval
+//                
+//                attrs.$observe(
+//                    "src",
+//                    function( srcAttribute ) {
+//                        logWithPhase( "$observe : " + srcAttribute )
 //                    }
-//                })
-//
-//                angular.forEach(scope.activeProject.employees, function(employee) {
-//                    scope.prefilledEmployees.push(employee.name)
-//                })
+//                )
 
-//                scope.$watch(attrs.ngModel, function(value) {
-//                    console.log(value)
-//                })
+                
+                
+                
+                
+//                 scope.$watch(function () { return TeamsService.teams },
+//                    function (newVal) {
+//                        
+//                        if (typeof newVal !== 'undefined') {
+//                            console.log("employeesTypeaheadTagmanager - on", newVal)
+//                            scope.teams = newVal
+//                            angular.forEach(scope.teams, function(team) {
+//                                if (team.isActive === true) {
+//                                    scope.activeTeam = team
+//                                }
+//                            })
+//                            angular.forEach(scope.activeTeam.employees, function(employee) {
+//                                scope.prefilledEmployees.push(employee.name)
+//                            })
+//                        }
+//                    }
+//                )
 
 
-//            scope.$watch('prefilledEmployees', function(newValue) {
-//                if (newValue === '') {
-//                    element.typeahead('setQuery', '')
-//                }
-//            }, true)
 
-
-//            scope.$watch('projects', function(newProjects) {
-//                scope.projects = newProjects
-//                scope.activeProject = projectsStorage.getActiveProject()
-//                scope.prefilledEmployees = ["Angola2", "Laos2", "Nepal2"]
-//            }, true)
 
                 var tagApi = element.tagsManager({
                     prefilled: scope.prefilledEmployees
@@ -75,7 +96,7 @@
                         return Bloodhound.tokenizers.whitespace(d.name)
                     },
                     queryTokenizer: Bloodhound.tokenizers.whitespace,
-                    prefetch: 'common/services/employees/employees.json' //TODO
+                    prefetch: 'common/services/employees/employees.json' //TODO: prefetch requires url to be set
                 })
 
                 name.initialize()
@@ -95,11 +116,15 @@
                 })
 
                 element.on('typeahead:selected', function(event, data) {
-                    addEmployeeToProjectInvoker(scope, data)
-//                scope.addEmployeeToProject(data)
+//                    addEmployeeToTeamInvoker(scope, data)
+//                    scope.addEmployeeToTeam(data)                   
+                    
+                    TeamsService.addEmployeeToActiveTeam(data, true)
+                    
                     tagApi.tagsManager("pushTag", data.name)
                     element.typeahead('close')
-//                    scope.$apply()
+                    
+                    scope.$digest()
                 })
             }
         }

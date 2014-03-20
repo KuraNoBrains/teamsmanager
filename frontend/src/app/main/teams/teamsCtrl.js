@@ -12,6 +12,10 @@
         $scope.teams = TeamsService.teams
         $scope.employeeTips = AppConfig.employeesDetailedInfo
 
+        $scope.$watch('teams', function(){
+            TeamsService.saveTeams()
+        }, true)
+
         $scope.addTeam = function(teamName) {
             if ($scope.teamForm.$valid) {
                 TeamsService.addTeam(teamName)

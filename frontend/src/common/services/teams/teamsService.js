@@ -5,7 +5,7 @@
         .module('my-app.common.teams')
         .service('TeamsService',
 
-            function(localStorageService) {
+            function($rootScope, localStorageService) {
                 
                 var teamService = {}
                 
@@ -14,6 +14,8 @@
                 }
                 
                 teamService.saveTeams = function() {
+                    $rootScope.$broadcast('updateTeams', teamService.teams)
+                    console.log('updateTeams', teamService.teams)
                     localStorageService.add("teams", JSON.stringify(teamService.teams))
                 }
                 
@@ -39,13 +41,13 @@
                     teamService.saveTeams()
                 }
                 
-                teamService.addEmployeeToActiveTeam = function(employee) {
+                teamService.addEmployeeToActiveTeam = function(employee, fromDirective) {
                     var activeTeam = teamService.getActiveTeam()
                     if (!_.isEmpty(activeTeam)) {
                         if ( _.indexOf(activeTeam.employees, employee.entity) != -1 ) {
                             return { isError: true, errorCode: 2}
                         } else {
-                            teamService.addEmployeeToTeam(employee, activeTeam)
+                            teamService.addEmployeeToTeam(employee, activeTeam, fromDirective)
                             return { isError: false}
                         }
                     } else {
@@ -67,12 +69,15 @@
                     return activeTeam
                 }
                 
-                teamService.addEmployeeToTeam = function(employee, activeTeam) {
+                teamService.addEmployeeToTeam = function(employee, activeTeam, fromDirective) {
                     var keepGoing = true
                     angular.forEach(teamService.teams, function(team) {
                         if(keepGoing) {
                             if (team.id == activeTeam.id) {
-                                team.employees.push(employee.entity)
+                                if(fromDirective)
+                                    team.employees.push(employee)
+                                else
+                                    team.employees.push(employee.entity)
                                 teamService.saveTeams()
                                 keepGoing = false
                             }

@@ -50,7 +50,7 @@
             
             // TODO: use promise instead
             
-            var response = TeamsService.addEmployeeToActiveTeam(employee)
+            var response = TeamsService.addEmployeeToActiveTeam(employee, false)
             if(response.isError){
                  switch(response.errorCode) {
                     case 1:
