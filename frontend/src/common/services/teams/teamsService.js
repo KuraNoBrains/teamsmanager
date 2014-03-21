@@ -5,7 +5,7 @@
         .module('my-app.common.teams')
         .service('TeamsService',
 
-            function($rootScope, localStorageService) {
+            function(localStorageService) {
                 
                 var teamService = {}
                 
@@ -14,8 +14,6 @@
                 }
                 
                 teamService.saveTeams = function() {
-                    $rootScope.$broadcast('updateTeams', teamService.teams)
-                    console.log('updateTeams', teamService.teams)
                     localStorageService.add("teams", JSON.stringify(teamService.teams))
                 }
                 
@@ -69,6 +67,15 @@
                     return activeTeam
                 }
                 
+                teamService.getActiveTeamEmployees = function() {
+                    var activeTeamEmployees = []
+                    var activeTeam = teamService.getActiveTeam()
+                    if (!_.isEmpty(activeTeam)) {
+                        activeTeamEmployees = activeTeam.employees
+                    }
+                    return activeTeamEmployees
+                }
+                
                 teamService.addEmployeeToTeam = function(employee, activeTeam, fromDirective) {
                     var keepGoing = true
                     angular.forEach(teamService.teams, function(team) {
@@ -97,6 +104,7 @@
                 
                 teamService.teams = teamService.getTeams()
                 teamService.activeTeam = teamService.getActiveTeam()
+                teamService.employeesInActiveTeam = teamService.getActiveTeamEmployees()
                 
                 return teamService
             })

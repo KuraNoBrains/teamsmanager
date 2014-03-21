@@ -23,9 +23,6 @@
 
 <hr>
 
-<!-- <div ng-switch-when=""></div>
-<div ng-switch-default></div>-->
-
 <div ng-show="teams.length==0">No Teams</div>
 <div ng-show="teams.length">
     <h3>Teams list</h3>
@@ -35,7 +32,7 @@
                 <i class="pull-left glyphicon" 
                    ng-class="{'glyphicon-chevron-down': team.isActive, 'glyphicon-chevron-right': !team.isActive}"></i>
                 <span style='margin-left: 10px;'>{{team.title}}</span> 
-                <i class="pull-right fa fa-minus-circle" ng-click="deleteTeam(team)"></i>
+                <i class="pull-right fa fa-times" ng-click="deleteTeam(team)"></i>
             </accordion-heading>
 
             <div ng-show="team.employees.length==0">No Employees</div>
@@ -43,11 +40,11 @@
                 <strong>Employees in the team:</strong>
                 <ul>
                     <li ng-repeat="employee in team.employees track by $index">
-                        <span popover-placement="bottom" popover-title="Detailed employee info"
-                              popover="{{employeeTips}}" popover-trigger="mouseenter">{{employee.name}} 
+                        <span popover-placement="bottom" popover-title="{{employeesDetailedInfoTitle}}"
+                              popover="{{employeesDetailedInfoText}}" popover-trigger="mouseenter">{{employee.name}} 
                         </span>
                         <span ng-click="deleteEmployeeFromTeam(employee, team)"> 
-                            <i class="pull-right fa fa-minus-circle" ></i> 
+                            <i class="pull-right fa fa-times" ></i> 
                         </span>
                     </li>
                 </ul>

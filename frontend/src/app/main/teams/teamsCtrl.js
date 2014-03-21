@@ -10,9 +10,17 @@
     function TeamsCtrl($scope, TeamsService, AppConfig, AlertsService) {
 
         $scope.teams = TeamsService.teams
-        $scope.employeeTips = AppConfig.employeesDetailedInfo
+        $scope.activeTeam = TeamsService.activeTeam
+        $scope.employeesInActiveTeam = TeamsService.employeesInActiveTeam
+        
+        $scope.employeesDetailedInfoTitle = AppConfig.employeesDetailedInfoTitle
+        $scope.employeesDetailedInfoText = AppConfig.employeesDetailedInfoText
 
-        $scope.$watch('teams', function(){
+        $scope.$watch('teams', function(newValue) {
+            $scope.teams = newValue
+//            $scope.activeTeam = TeamsService.activeTeam
+//            $scope.employeesInActiveTeam = TeamsService.employeesInActiveTeam
+//            $scope.$broadcast("employeesInActiveTeam_update")
             TeamsService.saveTeams()
         }, true)
 

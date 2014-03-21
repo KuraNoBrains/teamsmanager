@@ -5,42 +5,38 @@
         .module('my-app.tabs.tab1')
         .controller('Tab1Ctrl', Tab1Ctrl)
 
-    Tab1Ctrl.$inject = ['$scope', '$http', 'EmployeesFactory', 'TeamsService', 'AlertsService', 'AppConfig'] //'employees',
+    Tab1Ctrl.$inject = ['$scope', 'employees', 'TeamsService', 'AlertsService', 'AppConfig']
     
-    function Tab1Ctrl($scope, $http, EmployeesFactory, TeamsService, AlertsService, AppConfig) { //employees, 
+//    function myOnSelectFunction(){
+//        console.log('111')
+//    }
+    
+    
+    function Tab1Ctrl($scope, employees, TeamsService, AlertsService, AppConfig) {
+
+        $scope.employees = employees.data
+        $scope.teams = TeamsService.teams
+        $scope.activeTeam = TeamsService.activeTeam
+        $scope.employeesInActiveTeam = TeamsService.employeesInActiveTeam
         
-//        $scope.employees = employees.data
-//        $scope.teams = TeamsService.teams
+//        $scope.$on("employeesInActiveTeam_update", function(){
+//            $scope.employeesInActiveTeam = TeamsService.employeesInActiveTeam
+//        })
         
-        
-        
-//        $scope.employees = EmployeesFactory.getEmployees()
-//        console.log($scope.employees)
-        
-           
-        
-        
-        
-        $scope.tags = ['just','some','cool','tags']
-        
-        $scope.loadTags = function(query) {
-//            return $http.get('/tags?query=' + query)
-//            return $http.get('common/services/employees/employees.json')
+        $scope.typeaheadOpts = {
+//            loading: true,
+            popoverTitle: AppConfig.employeesDetailedInfoTitle,
+            popoverText: AppConfig.employeesDetailedInfoText
+//            onSelect: myOnSelectFunction
         }
         
-        $scope.loadTags1 = function(a){
-            console.log(a)
-        }
-        $scope.loadTags2 = function(a){
-            console.log(a)
-        }
-        
-        
-        
-        
-        
-        
-        
+//        $scope.myOnSelectFunction = function() {
+//            console.log('33333')
+//        }
+//        
+//        function myOnSelectFunction(){
+//            console.log('22222')
+//        }
         
 //        $scope.addEmployeeToTeam = function(employee) {
 //            

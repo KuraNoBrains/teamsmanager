@@ -13,8 +13,8 @@
         $scope.employees = employees.data
         
         $scope.AppConfig = AppConfig
-        $scope.employeeTips = AppConfig.employeesDetailedInfo
-       
+        $scope.employeesDetailedInfoTitle = AppConfig.employeesDetailedInfoTitle
+        $scope.employeesDetailedInfoText = AppConfig.employeesDetailedInfoText
 
         $scope.filterOptions = {
             filterText: ''

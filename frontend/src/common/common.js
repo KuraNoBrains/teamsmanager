@@ -3,12 +3,10 @@
 
     angular
         .module('my-app.common', [
-            'my-app.common.app-version',
             'my-app.common.constants',
             'my-app.common.alerts',
             'my-app.common.teams',
-            'my-app.common.employees',
-            'my-app.common.typeahead'
+            'my-app.common.employees'
         ])
         .config(Config)
 

@@ -29,7 +29,9 @@
                 clearButton:                    'Will clear search and filter inputs'
             },
             
-            employeesDetailedInfo:              'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. \n\
+            employeesDetailedInfoTitle:         'Detailed employee info',
+        
+            employeesDetailedInfoText:          'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. \n\
                                                 Aenean commodo ligula eget dolor. Aenean massa. \n\
                                                 Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. \n\
                                                 Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. \n\

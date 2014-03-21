@@ -2,7 +2,7 @@
     'use strict'
 
     angular
-        .module('my-app.main', [ 'ui.router', 'ui.bootstrap', 'my-app.alerts', 'my-app.tabs', 'my-app.teams', 'ngTagsInput'])
+        .module('my-app.main', [ 'ui.router', 'ui.bootstrap', 'my-app.alerts', 'my-app.tabs', 'my-app.teams'])
         .config(Config)
 
     Config.$inject = ['$stateProvider']
