@@ -3,17 +3,14 @@
     <div ng-style="{ 'cursor': row.cursor }" ng-repeat="col in renderedColumns" class="ngCell"
          ng-class="col.colIndex()" popover-placement="bottom" popover-title="{{employeesDetailedInfoTitle}}"
          popover="{{employeesDetailedInfoText}}" popover-trigger="mouseenter" popover-append-to-body="true">
-
         <div class="ngVerticalBar" ng-style="{height: rowHeight}" ng-class="{ ngVerticalBarVisible: !$last }"></div>
         
         <div ng-click="isCollapsed=!isCollapsed" ng-cell></div>
         
     </div>
     
+<!--    <div collapse="isCollapsed">
+        <div class="well well-lg">Some content</div> 
+    </div>-->
+    
 </div>
-
-<!-- TODO: collapse -->
-
-<!--<div collapse="isCollapsed">
-    <div class="well well-lg">Some content</div> 
-</div>-->

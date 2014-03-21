@@ -9,8 +9,6 @@
     
     function MainCtrl() {
       
-//        $rootScope.tooltips = AppConfig.tooltips
-    
     }
 
 }(window.angular))

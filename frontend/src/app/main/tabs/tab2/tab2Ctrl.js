@@ -5,12 +5,46 @@
         .module('my-app.tabs.tab2')
         .controller('Tab2Ctrl', Tab2Ctrl)
 
-    Tab2Ctrl.$inject = ['$scope', 'employees', 'TeamsService', 'AppConfig', 'AlertsService']
+    Tab2Ctrl.$inject = ['$scope', 'employees', 'TeamsService', 'AppConfig', 'AlertsService', 'ngTableParams']
 
-    function Tab2Ctrl($scope, employees, TeamsService, AppConfig, AlertsService) {
+    function Tab2Ctrl($scope, employees, TeamsService, AppConfig, AlertsService, ngTableParams) {
 
         $scope.isCollapsed = false
         $scope.employees = employees.data
+        
+        
+       var data = [{name: "Moroni", age: 50},
+                        {name: "Tiancum", age: 43},
+                        {name: "Jacob", age: 27},
+                        {name: "Nephi", age: 29},
+                        {name: "Enos", age: 34},
+                        {name: "Tiancum", age: 43},
+                        {name: "Jacob", age: 27},
+                        {name: "Nephi", age: 29},
+                        {name: "Enos", age: 34},
+                        {name: "Tiancum", age: 43},
+                        {name: "Jacob", age: 27},
+                        {name: "Nephi", age: 29},
+                        {name: "Enos", age: 34},
+                        {name: "Tiancum", age: 43},
+                        {name: "Jacob", age: 27},
+                        {name: "Nephi", age: 29},
+                        {name: "Enos", age: 34}];
+
+            $scope.tableParams = new ngTableParams({
+                page: 1,            // show first page
+                count: 10           // count per page
+            }, {
+                total: data.length, // length of data
+                getData: function($defer, params) {
+                    $defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                }
+            });
+        
+        
+//        angular.forEach($scope.employees, function(employee){
+//            $scope.isCollapsed.push(false)
+//        })
         
         $scope.AppConfig = AppConfig
         $scope.employeesDetailedInfoTitle = AppConfig.employeesDetailedInfoTitle
