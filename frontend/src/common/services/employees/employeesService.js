@@ -7,11 +7,9 @@
 
             function($http) {
                 return {
-                    
-//                    employeeeees: getEmployees(),
-                            
                     getEmployees: function() {
-                        return $http.get('common/services/employees/employees.json')
+                        //https://raw2.github.com/javascript-awesome/angular-911/master/datasources/staff.json
+                        return $http.get('common/services/employees/employees.json') 
                             .success(function(employees) {
                                 return employees
                             })
@@ -21,14 +19,5 @@
                     }
                 }
             })
-            
-//            function($resource) {
-//                return $resource('common/employees/employees.json', {}, {
-//                    getEmployees: {
-//                        method: 'GET',
-//                        isArray: true
-//                    }
-//                })
-//            }),
 
 }(window.angular))          

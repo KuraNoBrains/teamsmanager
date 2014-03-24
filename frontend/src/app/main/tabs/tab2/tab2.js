@@ -2,7 +2,7 @@
     'use strict'
 
     angular
-            .module('my-app.tabs.tab2', ['ngGrid', 'ngTable'])
+            .module('my-app.tabs.tab2', ['ngTable']) //ngGrid
             .config(Config)
 
     Config.$inject = []

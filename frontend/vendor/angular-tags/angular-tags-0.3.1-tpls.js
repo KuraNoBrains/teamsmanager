@@ -2,8 +2,8 @@ angular.module('decipher.tags.templates', ['templates/tags.html']);
 
 angular.module("templates/tags.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("templates/tags.html",
-    "<div class=\"decipher-tags\" data-ng-mousedown=\"selectArea()\">\n" +
-    "\n" +
+    " <div class=\"decipher-tags\" data-ng-mousedown=\"selectArea()\">\n" +
+    " \n" +
     "  <div class=\"decipher-tags-taglist\">\n" +
     "    <span data-ng-repeat=\"tag in tags|orderBy:orderBy\"\n" +
     "          data-ng-mousedown=\"$event.stopPropagation()\">\n" +
@@ -14,7 +14,10 @@ angular.module("templates/tags.html", []).run(["$templateCache", function($templ
     "       </span>\n" +
     "    </span>\n" +
     "  </div>\n" +
-    "\n" +
+    " \n" +
+    
+    "  <div ng-hide=\"!srcTags.length\"><button class=\"btn btn-default\" style=\"margin-top: 5px;\"><i class=\"fa fa-plus-circle\"></i></button></div>" +
+    
     "  <span class=\"container-fluid\" data-ng-show=\"toggles.inputActive\">\n" +
     "    <input ng-if=\"!srcTags.length\" type=\"text\" data-ng-model=\"inputTag\"\n" +
     "           class=\"decipher-tags-input\"/>\n" +
@@ -28,12 +31,12 @@ angular.module("templates/tags.html", []).run(["$templateCache", function($templ
     "           data-typeahead-min-length=\"{{typeaheadOptions.minLength}}\"\n" +
     "           data-typeahead-template-url=\"{{typeaheadOptions.templateUrl}}\"\n" +
     "           data-typeahead-wait-ms=\"{{typeaheadOptions.waitMs}}\"\n" +
-    "\n" +
+    " \n" +
     "           data-typeahead-editable=\"{{typeaheadOptions.allowsEditable}}\"\n" +
     "           data-typeahead-on-select=\"add($item) && selectArea() && typeaheadOptions.onSelect()\"/>\n" +
-    "\n" +
-    "  </span>\n" +
-    "</div>\n" +
+    " \n" +
+    "   </span>\n" +
+    " </div>\n" +
     "");
 }]);
 

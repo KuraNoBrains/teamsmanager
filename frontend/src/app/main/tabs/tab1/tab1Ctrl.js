@@ -19,7 +19,8 @@
 //        })
         
         $scope.typeaheadOpts = {
-//            loading: true,
+//            templateUrl: 'app/main/tabs/tab1/tab1.tags.tpl.html',
+//            templateUrl: '../vendor/angular-tags/templates/tags.html',
             popoverTitle: AppConfig.employeesDetailedInfoTitle,
             popoverText: AppConfig.employeesDetailedInfoText
 //            onSelect: myOnSelectFunction
