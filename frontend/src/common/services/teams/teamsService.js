@@ -39,13 +39,13 @@
                     teamService.saveTeams()
                 }
                 
-                teamService.addEmployeeToActiveTeam = function(employee, fromDirective) {
+                teamService.addEmployeeToActiveTeam = function(employee) {
                     var activeTeam = teamService.getActiveTeam()
                     if (!_.isEmpty(activeTeam)) {
-                        if ( _.indexOf(activeTeam.employees, employee.entity) != -1 ) {
+                        if ( _.indexOf(activeTeam.employees, employee) != -1 ) {
                             return { isError: true, errorCode: 2}
                         } else {
-                            teamService.addEmployeeToTeam(employee, activeTeam, fromDirective)
+                            teamService.addEmployeeToTeam(employee, activeTeam)
                             return { isError: false}
                         }
                     } else {
@@ -76,15 +76,12 @@
                     return activeTeamEmployees
                 }
                 
-                teamService.addEmployeeToTeam = function(employee, activeTeam, fromDirective) {
+                teamService.addEmployeeToTeam = function(employee, activeTeam) {
                     var keepGoing = true
                     angular.forEach(teamService.teams, function(team) {
                         if(keepGoing) {
                             if (team.id == activeTeam.id) {
-                                if(fromDirective)
-                                    team.employees.push(employee)
-                                else
-                                    team.employees.push(employee.entity)
+                                team.employees.push(employee)
                                 teamService.saveTeams()
                                 keepGoing = false
                             }

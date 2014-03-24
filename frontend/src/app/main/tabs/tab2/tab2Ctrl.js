@@ -5,86 +5,86 @@
         .module('my-app.tabs.tab2')
         .controller('Tab2Ctrl', Tab2Ctrl)
 
-    Tab2Ctrl.$inject = ['$scope', 'employees', 'TeamsService', 'AppConfig', 'AlertsService', 'ngTableParams']
+    Tab2Ctrl.$inject = ['$scope', '$filter', 'employees', 'TeamsService', 'AppConfig', 'AlertsService', 'ngTableParams']
 
-    function Tab2Ctrl($scope, employees, TeamsService, AppConfig, AlertsService, ngTableParams) {
+    function Tab2Ctrl($scope, $filter, employees, TeamsService, AppConfig, AlertsService, ngTableParams) {
 
-        $scope.isCollapsed = false
+        $scope.AppConfig = AppConfig
         $scope.employees = employees.data
+        $scope.employeesDetailedInfoTitle = AppConfig.employeesDetailedInfoTitle
+        $scope.employeesDetailedInfoText = AppConfig.employeesDetailedInfoText
         
-        
-       var data = [{name: "Moroni", age: 50},
-                        {name: "Tiancum", age: 43},
-                        {name: "Jacob", age: 27},
-                        {name: "Nephi", age: 29},
-                        {name: "Enos", age: 34},
-                        {name: "Tiancum", age: 43},
-                        {name: "Jacob", age: 27},
-                        {name: "Nephi", age: 29},
-                        {name: "Enos", age: 34},
-                        {name: "Tiancum", age: 43},
-                        {name: "Jacob", age: 27},
-                        {name: "Nephi", age: 29},
-                        {name: "Enos", age: 34},
-                        {name: "Tiancum", age: 43},
-                        {name: "Jacob", age: 27},
-                        {name: "Nephi", age: 29},
-                        {name: "Enos", age: 34}];
+        $scope.isCollapsed = []
+        angular.forEach($scope.employees, function(employee){
+            $scope.isCollapsed[employee.id] = true
+        })
 
-            $scope.tableParams = new ngTableParams({
-                page: 1,            // show first page
-                count: 10           // count per page
-            }, {
-                total: data.length, // length of data
-                getData: function($defer, params) {
-                    $defer.resolve(data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                }
-            });
-        
+        $scope.tableParams = new ngTableParams({
+            page: 1,           
+            count: 10,           
+            sorting: {
+                name: 'asc'     
+            },
+            filter: {
+                name: ''
+            },
+        }, {
+            total: $scope.employees.length,
+            getData: function($defer, params) {
+                // use build-in angular filter
+                var filteredData = params.filter() ?
+                    $filter('filter')($scope.employees, params.filter()) :
+                    $scope.employees
+                var orderedData = params.sorting() ?
+                    $filter('orderBy')(filteredData, params.orderBy()) :
+                    $scope.employees
+                params.total(orderedData.length)
+                $defer.resolve(orderedData.slice((params.page() - 1) * params.count(), params.page() * params.count()))
+            }
+        })
+            
         
 //        angular.forEach($scope.employees, function(employee){
 //            $scope.isCollapsed.push(false)
 //        })
         
-        $scope.AppConfig = AppConfig
-        $scope.employeesDetailedInfoTitle = AppConfig.employeesDetailedInfoTitle
-        $scope.employeesDetailedInfoText = AppConfig.employeesDetailedInfoText
 
-        $scope.filterOptions = {
-            filterText: ''
-        }
 
-        $scope.gridOptions = {
-            data: 'employees',
-            rowTemplate: 'app/main/tabs/tab2/tab2.row.tpl.html',
-            columnDefs: [
-                {
-                    field: 'name',
-                    displayName: 'Full Name',
-                    cellTemplate: 'app/main/tabs/tab2/tab2.cell.tpl.html'
-                },
-                {
-                    field: 'age',
-                    displayName: 'Age'
-                },
-                {
-                    field: 'grade',
-                    displayName: 'Grade'
-                },
-                {
-                    field: 'job',
-                    displayName: 'Job'
-                }
-            ],
-            filterOptions: $scope.filterOptions,
-            multiSelect: false
-        }
+//        $scope.filterOptions = {
+//            filterText: ''
+//        }
+//
+//        $scope.gridOptions = {
+//            data: 'employees',
+//            rowTemplate: 'app/main/tabs/tab2/tab2.row.tpl.html',
+//            columnDefs: [
+//                {
+//                    field: 'name',
+//                    displayName: 'Full Name',
+//                    cellTemplate: 'app/main/tabs/tab2/tab2.cell.tpl.html'
+//                },
+//                {
+//                    field: 'age',
+//                    displayName: 'Age'
+//                },
+//                {
+//                    field: 'grade',
+//                    displayName: 'Grade'
+//                },
+//                {
+//                    field: 'job',
+//                    displayName: 'Job'
+//                }
+//            ],
+//            filterOptions: $scope.filterOptions,
+//            multiSelect: false
+//        }
 
         $scope.addEmployeeToTeam = function(employee) {
             
             // TODO: use promise instead
             
-            var response = TeamsService.addEmployeeToActiveTeam(employee, false)
+            var response = TeamsService.addEmployeeToActiveTeam(employee)
             if(response.isError){
                  switch(response.errorCode) {
                     case 1:
@@ -97,6 +97,10 @@
             } else {
                 AlertsService.add(AppConfig.alerts.types.infoType, AppConfig.alerts.messages.employeeAdded)
             }
+        }
+        
+        $scope.collapseEmployee = function(employeeID) {
+            $scope.isCollapsed[employeeID] = !$scope.isCollapsed[employeeID]
         }
 
     }

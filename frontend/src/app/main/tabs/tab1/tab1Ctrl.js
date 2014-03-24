@@ -7,11 +7,6 @@
 
     Tab1Ctrl.$inject = ['$scope', 'employees', 'TeamsService', 'AlertsService', 'AppConfig']
     
-//    function myOnSelectFunction(){
-//        console.log('111')
-//    }
-    
-    
     function Tab1Ctrl($scope, employees, TeamsService, AlertsService, AppConfig) {
 
         $scope.employees = employees.data
@@ -29,36 +24,6 @@
             popoverText: AppConfig.employeesDetailedInfoText
 //            onSelect: myOnSelectFunction
         }
-        
-//        $scope.myOnSelectFunction = function() {
-//            console.log('33333')
-//        }
-//        
-//        function myOnSelectFunction(){
-//            console.log('22222')
-//        }
-        
-//        $scope.addEmployeeToTeam = function(employee) {
-//            
-//            // TODO: use promise instead
-//            var response = TeamsService.addEmployeeToActiveTeam(employee, false)
-//            if(response.isError){
-//                 switch(response.errorCode) {
-//                    case 1:
-//                        AlertsService.add(AppConfig.alerts.types.errorType, AppConfig.alerts.messages.employeeAddError)
-//                        break
-//                    case 2:
-//                        AlertsService.add(AppConfig.alerts.types.errorType, AppConfig.alerts.messages.employeeDuplicateError)
-//                        break
-//                 }
-//            } else {
-//                AlertsService.add(AppConfig.alerts.types.infoType, AppConfig.alerts.messages.employeeAdded)
-//            }
-//        }
-//        
-//        $scope.deleteEmployeeFromTeam = function(){
-//            
-//        }
         
     }
 
